@@ -1,0 +1,13 @@
+https://ieeexplore.ieee.org/document/9295358
+https://ieeexplore.ieee.org/document/9682710
+https://ieeexplore.ieee.org/document/10024122
+https://ieeexplore.ieee.org/document/8929775
+https://ieeexplore.ieee.org/document/7097049
+https://ieeexplore.ieee.org/document/7823611 
+https://ieeexplore.ieee.org/document/9709124
+https://ieeexplore.ieee.org/document/9726814
+https://ieeexplore.ieee.org/document/8731725
+https://ieeexplore.ieee.org/document/9761798
+https://ieeexplore.ieee.org/document/8835255
+https://www.emerald.com/insight/content/doi/10.1108/IJCHM-05-2023-0686/full/html?skipTracking=true 
+[Normalized_Attraction_Travel_Personality_Representation_for_Improving_Travel_Recommender_Systems.pdf](https://github.com/Akshay-Dongare/BE-Project/files/12242857/Normalized_Attraction_Travel_Personality_Representation_for_Improving_Travel_Recommender_Systems.pdf)
