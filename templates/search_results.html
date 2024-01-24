@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search Results</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+      #table {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      #table td, #table th {
+        border: 1px solid black;
+        padding: 8px;
+      }
+      
+      #table tr:hover {background-color: #ddd;}
+      
+      #table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: green;
+        color: black;
+      }
+      </style>
+  </head>
+  <body>
+    <img id="logo" src="/static/images/logo2.png" alt="My Logo">
+
+    <form action="/search" method="GET">
+      <input type="text" id="query" name="query" value="{{ query }}">
+      <input type="submit" value="search">
+    </form><br>
+    <form action="/show_upload_page" method="GET">
+      <input type="submit" value="I want to upload my custom text file">
+    </form>
+    <div id="results">
+    <h1>Search Results</h1>
+    {% if results %}
+    <table id="table">
+      <tr>
+        <th style="text-align: center">Similarity Score</th>
+        <th style="text-align: center">Text</th>
+      </tr>
+    
+      {% for score,NER_text in results%}
+      <tr>
+        <td style="text-align: center">"{{ score }}"</td>
+        <td style="text-align: justify">"{{ NER_text|markdown }}"</td>
+      </tr>
+      {% endfor %}
+    
+    </table>
+    {% else %}
+      <p>No results found.</p>
+    {% endif %}
+    </div>
+    <div id="results">
+    <h1>GPT3.5 Generated Answer for Query</h1>
+    {% if gpt_result %}
+      <p>{{gpt_result}}</p>
+    {% else %}
+      <p>No results found.</p>
+    {% endif %}
+    </div>
+
+  </body>
+</html>
