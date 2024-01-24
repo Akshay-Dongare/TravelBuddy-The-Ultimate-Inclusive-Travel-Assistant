@@ -1,8 +1,11 @@
 Flask
-pinecone-client==3.0.0
+pinecone-client[grpc]
 pinecone-datasets==0.7.0
 langchain==0.1.1
 langchain-community==0.0.13
 tiktoken==0.5.2
-datasets==2.12.0
-typing-extensions==4.5.0
+datasets
+typing_extensions==4.7.1
+langchain-openai
+openai
+pydantic==1.10.8

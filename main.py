@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request
-#import openai
+import openai
 import config
 from pinecone import Pinecone
 #import pinecone_datasets
-from langchain_community.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 #from langchain.chains import RetrievalQA
 from langchain.chains import RetrievalQAWithSourcesChain #RAG With sources
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Pinecone
 from pinecone import ServerlessSpec, PodSpec
 import time
@@ -15,10 +15,13 @@ from datasets import load_dataset
 from tqdm.auto import tqdm
 from langchain.agents import Tool
 from langchain.agents import initialize_agent
+from langchain_community.tools.tavily_search import TavilySearchResults
+
 
 app = Flask(__name__)
-
-#openai.api_key = config.OPENAI_API_KEY
+openai.api_key = config.OPENAI_API_KEY
+'''
+openai.api_key = config.OPENAI_API_KEY
 #cohere initialization
 #co = cohere.Client(config.COHERE_API_KEY)
 
@@ -26,6 +29,7 @@ app = Flask(__name__)
 # initialize connection to pinecone (get API key at app.pinecone.io)
 # configure client
 pinecone = Pinecone(api_key=config.PINECONE_API_KEY)
+
 
 #dataset = pinecone_datasets.load_dataset('wikipedia-simple-text-embedding-ada-002-100K') #change to custom travel dataset later
 
@@ -51,7 +55,7 @@ if use_serverless:
     spec = ServerlessSpec(cloud='aws', region='us-west-2')
 else:
     # if not using a starter index, you should specify a pod_type too
-    spec = PodSpec()
+    spec = PodSpec(environment=config.PINECONE_ENVIRONMENT)
 
 index_name = "langchain-retrieval-agent"
 existing_indexes = [
@@ -84,9 +88,9 @@ batch_size = 100
 texts = []
 metadatas = []
 
-for i in tqdm(range(0, len(data), batch_size)):
+for i in tqdm(range(0, 5, batch_size)):#change 5 to len(data)
     # get end of batch
-    i_end = min(len(data), i+batch_size)
+    i_end = min(5, i+batch_size) #change 5 to len(data)
     batch = data.iloc[i:i_end]
     # first get metadata fields for this record
     metadatas = [{
@@ -104,6 +108,7 @@ for i in tqdm(range(0, len(data), batch_size)):
 
 index.describe_index_stats()
 
+
 ######################################################################################
 #creating a vectorstore
 text_field = "text"  # the metadata field that contains our text
@@ -113,7 +118,7 @@ text_field = "text"  # the metadata field that contains our text
 
 # initialize the vector store object
 vectorstore = Pinecone(
-    index, embed.embed_query, text_field
+    index, embed , text_field
 )
 
 # Now we can query the vector store directly using vectorstore.similarity_search:   
@@ -122,7 +127,7 @@ vectorstore = Pinecone(
 #    query,  # our search query
 #    k=3  # return 3 most relevant docs
 #)
-
+'''
 #But lets use it to perform RAG Query Answering
 #Initializing the Conversational Agent
 # completion llm
@@ -145,7 +150,7 @@ conversational_memory = ConversationBufferWindowMemory(
 #    chain_type="stuff",
 #    retriever=vectorstore.as_retriever()
 #)
-
+'''
 qa_with_sources = RetrievalQAWithSourcesChain.from_chain_type(
     llm=llm,
     chain_type="stuff",
@@ -162,7 +167,11 @@ tools = [
         )
     )
 ]
+'''
+import os
+os.environ["tavily_api_key"] = "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"
 
+tools = [TavilySearchResults(max_results=1)]
 
 agent = initialize_agent(
     agent='chat-conversational-react-description',
@@ -184,7 +193,7 @@ def index():
 def chat():
     msg = request.form["msg"]
     input = msg
-    return agent(input)
+    return agent(input)['output']
 
 
 if __name__ == '__main__':
