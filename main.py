@@ -2,12 +2,13 @@ from flask import Flask, request, render_template
 import openai
 import config
 import pinecone
-from flaskext.markdown import Markdown
+from markupsafe import Markup
+#from flaskext.markdown import Markdown
 #import cohere #use cohere to create embeddings using a multilingual model
 
 
 app = Flask(__name__)
-Markdown(app)
+#Markdown(app) 
 
 openai.api_key = config.OPENAI_API_KEY
 

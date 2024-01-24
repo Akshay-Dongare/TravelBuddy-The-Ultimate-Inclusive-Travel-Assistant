@@ -1,4 +1,3 @@
 Flask
 openai
 pinecone-client
-Flask-Markdown
