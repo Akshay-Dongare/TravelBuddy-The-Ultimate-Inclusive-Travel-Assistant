@@ -40,7 +40,6 @@
 								<div class="input-group-append">
 									<button type="submit" id="send" class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></button>
 									<button id="micButton" class="input-group-text mic_btn"><i class="fas fa-microphone"></i></button>
-
 								</div>
 							</form>
 						</div>
@@ -77,6 +76,13 @@
 				});
 			});
 		</script>
-        
+		<script>
+			document.getElementById('micButton').addEventListener('click', function() {
+				// Use AJAX to trigger the Python script
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET', '/voice', true);
+				xhr.send();
+			});
+		</script>
     </body>
 </html>
