@@ -1,8 +1,8 @@
 Flask
-openai==1.6.1 
 pinecone-client==3.0.0
 pinecone-datasets==0.7.0
 langchain==0.1.1
 langchain-community==0.0.13
 tiktoken==0.5.2
 datasets==2.12.0
+typing-extensions==4.5.0

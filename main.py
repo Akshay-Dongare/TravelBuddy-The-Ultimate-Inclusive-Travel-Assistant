@@ -1,14 +1,14 @@
 from flask import Flask, render_template, request
-import openai
+#import openai
 import config
-import pinecone
-import pinecone_datasets
-from langchain.chat_models import ChatOpenAI
+from pinecone import Pinecone
+#import pinecone_datasets
+from langchain_community.chat_models import ChatOpenAI
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 #from langchain.chains import RetrievalQA
 from langchain.chains import RetrievalQAWithSourcesChain #RAG With sources
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import Pinecone
+from langchain_community.vectorstores import Pinecone
 from pinecone import ServerlessSpec, PodSpec
 import time
 from datasets import load_dataset
@@ -23,11 +23,9 @@ app = Flask(__name__)
 #co = cohere.Client(config.COHERE_API_KEY)
 
 # initialize connection to pinecone
-pinecone.init(
-    api_key=config.PINECONE_API_KEY,
-    environment=config.PINECONE_ENVIRONMENT 
-)
-
+# initialize connection to pinecone (get API key at app.pinecone.io)
+# configure client
+pinecone = Pinecone(api_key=config.PINECONE_API_KEY)
 
 #dataset = pinecone_datasets.load_dataset('wikipedia-simple-text-embedding-ada-002-100K') #change to custom travel dataset later
 
