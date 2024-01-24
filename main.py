@@ -1,13 +1,5 @@
 from flask import Flask, render_template, request
 
-
-#from transformers import AutoModelForCausalLM, AutoTokenizer
-#import torch
-
-#tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-medium")
-#model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-medium")
-
-
 app = Flask(__name__)
 
 @app.route("/")
