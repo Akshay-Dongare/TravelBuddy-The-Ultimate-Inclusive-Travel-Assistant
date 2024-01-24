@@ -2,8 +2,6 @@ from flask import Flask, request, render_template
 import openai
 import config
 import pinecone
-import spacy
-from spacy import displacy
 from flaskext.markdown import Markdown
 #import cohere #use cohere to create embeddings using a multilingual model
 
@@ -23,7 +21,7 @@ pinecone.init(
 )
 
 #ner
-nlp = spacy.load("en_core_web_sm")
+#nlp = spacy.load("en_core_web_sm")
 
 
 @app.route('/static/<path:filename>')
@@ -66,7 +64,8 @@ def search():
 
     #retrieve the top three matches
     res = index.query([xq], top_k=3, include_metadata=True)
-    
+
+    '''
     scores = []
     NER_texts = []
 
@@ -77,6 +76,7 @@ def search():
 
     #send result object to HTML to display
     results = zip(scores,NER_texts)
+    '''
 
     #concatenate top 3 search results to provide more context for gpt model to answer the query 
     #note that we do not use the expanded_query for Q&A
