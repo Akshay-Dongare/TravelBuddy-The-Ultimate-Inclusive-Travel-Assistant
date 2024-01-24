@@ -19,7 +19,6 @@ from langchain_community.tools.tavily_search import TavilySearchResults
 
 
 app = Flask(__name__)
-openai.api_key = config.OPENAI_API_KEY
 '''
 openai.api_key = config.OPENAI_API_KEY
 #cohere initialization
@@ -108,7 +107,7 @@ for i in tqdm(range(0, 5, batch_size)):#change 5 to len(data)
 
 index.describe_index_stats()
 
-
+'''
 ######################################################################################
 #creating a vectorstore
 text_field = "text"  # the metadata field that contains our text
@@ -127,7 +126,7 @@ vectorstore = Pinecone(
 #    query,  # our search query
 #    k=3  # return 3 most relevant docs
 #)
-'''
+
 #But lets use it to perform RAG Query Answering
 #Initializing the Conversational Agent
 # completion llm

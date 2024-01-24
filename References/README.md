@@ -5,3 +5,7 @@
 3. https://github.com/binary-hood/ChatBot
 4. https://huggingface.co/facebook/s2t-medium-librispeech-asr
 5. https://docs.pinecone.io/docs/langchain
+6. https://medium.com/the-pelago-tech-blog/pelagos-travel-assistant-c9c68919416e
+7. Gradio
+8. https://medium.com/the-pelago-tech-blog/revolutionising-travel-assistance-pelagos-llm-powered-chatbot-3def61feccef
+9. 
