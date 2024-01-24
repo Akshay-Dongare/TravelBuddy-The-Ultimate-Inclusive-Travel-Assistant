@@ -180,7 +180,8 @@ agent = initialize_agent(
     verbose=True,
     max_iterations=3,
     early_stopping_method='generate',
-    memory=conversational_memory
+    memory=conversational_memory,
+    handle_parsing_errors=True
 )
 
 
