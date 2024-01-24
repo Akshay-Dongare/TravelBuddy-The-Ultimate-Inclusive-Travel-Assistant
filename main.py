@@ -1,6 +1,50 @@
 from flask import Flask, render_template, request
+import openai
+import config
+import pinecone
+import pinecone_datasets
+from langchain.chat_models import ChatOpenAI
+#from langchain.chains import RetrievalQA
+from langchain.chains import RetrievalQAWithSourcesChain #RAG With sources
+
 
 app = Flask(__name__)
+
+openai.api_key = config.OPENAI_API_KEY
+#cohere initialization
+#co = cohere.Client(config.COHERE_API_KEY)
+
+# initialize connection to pinecone
+pinecone.init(
+    api_key=config.PINECONE_API_KEY,
+    environment=config.PINECONE_ENVIRONMENT 
+)
+
+dataset = pinecone_datasets.load_dataset('wikipedia-simple-text-embedding-ada-002-100K')
+
+
+# completion llm
+llm = ChatOpenAI(
+    openai_api_key= config.OPENAI_API_KEY,
+    model_name='gpt-3.5-turbo',
+    temperature=0.0
+)
+
+#qa = RetrievalQA.from_chain_type(
+#    llm=llm,
+#    chain_type="stuff",
+#    retriever=vectorstore.as_retriever()
+#)
+
+qa_with_sources = RetrievalQAWithSourcesChain.from_chain_type(
+    llm=llm,
+    chain_type="stuff",
+    retriever=vectorstore.as_retriever()
+)
+
+qa_with_sources(query)
+
+
 
 @app.route("/")
 def index():
