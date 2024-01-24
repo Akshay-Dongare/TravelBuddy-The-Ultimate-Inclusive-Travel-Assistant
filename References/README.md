@@ -8,4 +8,4 @@
 6. https://medium.com/the-pelago-tech-blog/pelagos-travel-assistant-c9c68919416e
 7. Gradio
 8. https://medium.com/the-pelago-tech-blog/revolutionising-travel-assistance-pelagos-llm-powered-chatbot-3def61feccef
-9. 
+9. https://medium.com/@bijit211987/optimizing-rag-for-llms-apps-53f6056d8118
