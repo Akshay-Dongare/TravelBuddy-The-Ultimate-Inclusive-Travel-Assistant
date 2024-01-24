@@ -5,7 +5,7 @@ from openai import OpenAI
 import speech_recognition as sr
 import pyttsx3 
 
-
+'''
 # Initialize the recognizer 
 r = sr.Recognizer() 
 
@@ -50,7 +50,7 @@ while(1):
          
     except sr.UnknownValueError:
         print("unknown error occurred")
-
+'''
 app = Flask(__name__)
 
 os.environ["OPENAI_API_KEY"] = "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"
@@ -59,6 +59,7 @@ client = OpenAI(
     # This is the default and can be omitted
     api_key=os.environ.get("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"),
 )
+
 
 @app.route("/")
 def index():

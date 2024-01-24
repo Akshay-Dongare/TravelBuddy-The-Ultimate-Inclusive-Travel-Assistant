@@ -48,11 +48,12 @@ border-radius: 0 0 15px 15px !important;
 	background-color: rgba(0,0,0,0.3) !important;
 	border:0 !important;
 	color:white !important;
+	left: 33px;
 	height: 60px !important;
 	overflow-y: auto;
 }
 	.type_msg:focus{
-	 box-shadow:none !important;
+	box-shadow:none !important;
    outline:0px !important;
 }
 .attach_btn{
@@ -208,6 +209,19 @@ border-radius: 0 0 15px 15px !important;
 	width: 100%;
 	padding: 10px 15px;
 	margin-bottom: 5px;
+}
+.mic_btn {
+    background-color: rgba(0,0,0,0.5);
+	position: absolute;
+    left: 0px; /* Change from right to left */
+	height: 60px !important;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.mic_btn:hover {
+    background-color: #2980b9;
 }
 .action_menu ul li i{
 	padding-right: 10px;
