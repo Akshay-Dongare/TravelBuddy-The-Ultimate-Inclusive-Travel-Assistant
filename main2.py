@@ -76,12 +76,6 @@ def voice():
         except sr.UnknownValueError:
             print("unknown error occurred")
 
-@app.route("/get", methods=["GET", "POST"])
-def chat():
-    msg = request.form["msg"]
-    input = msg
-    return response_by_llm(input)
-
 def response_by_llm(query):
     #Q&A using gpt3.5
     completion = client.chat.completions.create(
@@ -93,6 +87,12 @@ def response_by_llm(query):
     model="gpt-3.5-turbo",
     )
     return completion.choices[0].message.content
+
+@app.route("/get", methods=["GET", "POST"])
+def chat():
+    msg = request.form["msg"]
+    input = msg
+    return response_by_llm(input)
 
 if __name__ == '__main__':
     app.run(debug=True)
