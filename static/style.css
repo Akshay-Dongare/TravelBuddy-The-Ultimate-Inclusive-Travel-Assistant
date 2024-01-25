@@ -221,7 +221,10 @@ border-radius: 0 0 15px 15px !important;
 }
 
 .mic_btn:hover {
-    background-color: #2980b9;
+    background-color: #84919a;
+}
+.mic_btn:active {
+	background-color: green;
 }
 .action_menu ul li i{
 	padding-right: 10px;
