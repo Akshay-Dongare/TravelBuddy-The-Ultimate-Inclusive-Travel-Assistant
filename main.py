@@ -178,7 +178,7 @@ prompt_with_history = CustomPromptTemplate(
 )
 output_parser = CustomOutputParser()
 # memory = ConversationBufferWindowMemory(k=2)
-llm = ChatOpenAI(temperature=0.7, model="gpt-3.5-turbo-0613")
+llm = ChatOpenAI(temperature=0.7, model="gpt-3.5-turbo-0613", openai_api_key=config.OPENAI_API_KEY)
 # LLM chain consisting of the LLM and a prompt
 llm_chain = LLMChain(llm=llm, prompt=prompt_with_history)#choose if you want prompt with history or just prompt
 tool_names = [tool.name for tool in tools]
