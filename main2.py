@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import config
+import Utils.config as config
 import os
 from openai import OpenAI
 import speech_recognition as sr
@@ -7,11 +7,11 @@ import pyttsx3
 
 app = Flask(__name__)
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
 
 client = OpenAI(
     # This is the default and can be omitted
-    api_key=os.environ.get("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"),
+    api_key=os.environ.get(config.OPENAI_API_KEY),
 )
 
 

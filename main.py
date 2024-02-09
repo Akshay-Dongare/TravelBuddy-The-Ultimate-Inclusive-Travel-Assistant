@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import openai
-import config
+import Utils.config as config
 from pinecone import Pinecone
 #import pinecone_datasets
 from langchain_openai import ChatOpenAI
