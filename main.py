@@ -1,12 +1,22 @@
 import Utils.config as config
 from flask import Flask, render_template, request
 import os
-from openai import OpenAI
+#from openai import OpenAI
 import speech_recognition as sr
-import pyttsx3 
+import pyttsx3
+from langchain.agents import Tool, AgentExecutor, LLMSingleActionAgent, AgentOutputParser,initialize_agent,Tool
+from langchain.prompts import StringPromptTemplate
+from langchain_community.chat_models import ChatOpenAI
+from langchain.chains import LLMChain
+from typing import List, Union
+from langchain.schema import AgentAction, AgentFinish, OutputParserException
+import re
+from langchain_community.chat_models import ChatOpenAI
+from langchain_community.tools import DuckDuckGoSearchRun
+from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 
 # Call constructors
-client = OpenAI(api_key=config.OPENAI_API_KEY)
+#client = OpenAI(api_key=config.OPENAI_API_KEY)
 app = Flask(__name__)
 
 template = """Answer the following questions as best you can, but speaking as passionate travel expert. You have access to the following tools:
@@ -124,6 +134,62 @@ def _handle_error(error) -> str:
     return str(error)[:50]
 
 
+def _handle_error(error) -> str:
+    return str(error)[:50]
+
+tools = [
+
+    Tool(
+        name="Search general",
+        func=search_general,
+        description="useful for when you need to answer general travel questions"
+    ),
+    Tool(
+        name="Search tripadvisor",
+        func=search_online,
+        description="useful for when you need to answer trip plan questions"
+    ),
+    Tool(
+        name="Search booking",
+        func=search_hotel,
+        description="useful for when you need to answer hotel questions"
+    ),
+    Tool(
+        name="Search flight",
+        func=search_flight,
+        description="useful for when you need to answer flight questions"
+    )
+
+]
+
+prompt = CustomPromptTemplate(
+    template=template,
+    tools=tools,
+    # This omits the `agent_scratchpad`, `tools`, and `tool_names` variables because those are generated dynamically
+    # This includes the `intermediate_steps` variable because that is needed
+    input_variables=["input", "intermediate_steps"]
+)
+prompt_with_history = CustomPromptTemplate(
+    template=template,
+    tools=tools,
+    # This omits the `agent_scratchpad`, `tools`, and `tool_names` variables because those are generated dynamically
+    # This includes the `intermediate_steps` variable because that is needed
+    input_variables=["input", "intermediate_steps", "history"]
+)
+output_parser = CustomOutputParser()
+# memory = ConversationBufferWindowMemory(k=2)
+llm = ChatOpenAI(temperature=0.7, model="gpt-3.5-turbo-0613")
+# LLM chain consisting of the LLM and a prompt
+llm_chain = LLMChain(llm=llm, prompt=prompt_with_history)#choose if you want prompt with history or just prompt
+tool_names = [tool.name for tool in tools]
+agent = LLMSingleActionAgent(
+    llm_chain=llm_chain,
+    output_parser=output_parser,
+    stop=["\nObservation:"],
+    allowed_tools=tool_names
+)
+agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, verbose=True, memory=memory)
+
 @app.route("/")
 def index():
     return render_template('chat.html')
@@ -169,6 +235,8 @@ def voice():
                 print("Did you say ",MyText)
                 
                 #Q&A using gpt3.5
+                completion = agent_executor.invoke({"input":MyText})
+                '''
                 completion = client.chat.completions.create(
                     messages=[
                         {"role": "user", 
@@ -177,7 +245,8 @@ def voice():
                         ],
                 model="gpt-3.5-turbo",
                 )
-                SpeakText(completion.choices[0].message.content)
+                SpeakText(completion.choices[0].message.content)'''
+                SpeakText(completion['output'])
                 
         except sr.RequestError as e:
             print("Could not request results; {0}".format(e))
@@ -187,6 +256,7 @@ def voice():
 
 def response_by_llm(query):
     #Q&A using gpt3.5
+    '''
     completion = client.chat.completions.create(
         messages=[
             {"role": "user", 
@@ -194,8 +264,9 @@ def response_by_llm(query):
              }
              ],
     model="gpt-3.5-turbo",
-    )
-    return completion.choices[0].message.content
+    )'''
+    completion = agent_executor.invoke({"input":query})
+    return completion['output']
 
 @app.route("/get", methods=["GET", "POST"])
 def chat():

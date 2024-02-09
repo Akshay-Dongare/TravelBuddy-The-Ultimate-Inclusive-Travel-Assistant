@@ -172,7 +172,7 @@ def agent():
     # memory = ConversationBufferWindowMemory(k=2)
     llm = ChatOpenAI(temperature=0.7, model="gpt-3.5-turbo-0613")
     # LLM chain consisting of the LLM and a prompt
-    llm_chain = LLMChain(llm=llm, prompt=prompt)
+    llm_chain = LLMChain(llm=llm, prompt=prompt_with_history)#choose if you want prompt with history or just prompt
     tool_names = [tool.name for tool in tools]
     agent = LLMSingleActionAgent(
         llm_chain=llm_chain,
