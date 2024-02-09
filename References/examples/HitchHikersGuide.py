@@ -10,8 +10,8 @@ from langchain_community.tools import DuckDuckGoSearchRun
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 import os
 import chainlit as cl
-import Utils.config as config
-os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
+
+os.environ["OPENAI_API_KEY"] = "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"
 
 template = """Answer the following questions as best you can, but speaking as passionate travel expert. You have access to the following tools:
 
