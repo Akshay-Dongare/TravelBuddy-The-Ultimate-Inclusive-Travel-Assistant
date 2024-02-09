@@ -2,9 +2,10 @@ import Utils.config as config
 from flask import Flask, render_template, request
 import os
 #from openai import OpenAI
+from langchain import hub
 import speech_recognition as sr
 import pyttsx3
-from langchain.agents import Tool, AgentExecutor, LLMSingleActionAgent, AgentOutputParser,initialize_agent,Tool
+from langchain.agents import Tool, AgentExecutor, create_react_agent, AgentOutputParser,Tool
 from langchain.prompts import StringPromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain.chains import LLMChain
@@ -15,8 +16,6 @@ from langchain_community.chat_models import ChatOpenAI
 from langchain_community.tools import DuckDuckGoSearchRun
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 
-# Call constructors
-#client = OpenAI(api_key=config.OPENAI_API_KEY)
 app = Flask(__name__)
 
 template = """Answer the following questions as best you can, but speaking as passionate travel expert. You have access to the following tools:
@@ -127,15 +126,10 @@ def search_general(input_text):
     search = DuckDuckGoSearchRun().run(f"{input_text}")
     return search
 
-
-memory=ConversationBufferWindowMemory(k=2)
-
+'''
 def _handle_error(error) -> str:
     return str(error)[:50]
-
-
-def _handle_error(error) -> str:
-    return str(error)[:50]
+'''
 
 tools = [
 
@@ -176,19 +170,22 @@ prompt_with_history = CustomPromptTemplate(
     # This includes the `intermediate_steps` variable because that is needed
     input_variables=["input", "intermediate_steps", "history"]
 )
+prompt_langchain_hub = hub.pull("hwchase17/react-chat")
 output_parser = CustomOutputParser()
-# memory = ConversationBufferWindowMemory(k=2)
+memory = ConversationBufferWindowMemory(k=2)
 llm = ChatOpenAI(temperature=0.7, model="gpt-3.5-turbo-0613", openai_api_key=config.OPENAI_API_KEY)
 # LLM chain consisting of the LLM and a prompt
 llm_chain = LLMChain(llm=llm, prompt=prompt_with_history)#choose if you want prompt with history or just prompt
 tool_names = [tool.name for tool in tools]
-agent = LLMSingleActionAgent(
+'''agent = LLMSingleActionAgent(
     llm_chain=llm_chain,
     output_parser=output_parser,
     stop=["\nObservation:"],
     allowed_tools=tool_names
 )
-agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, verbose=True, memory=memory)
+agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, verbose=True, memory=memory)'''
+agent = create_react_agent(llm=llm, tools=tools, prompt=prompt_with_history)
+agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, memory=memory)
 
 @app.route("/")
 def index():

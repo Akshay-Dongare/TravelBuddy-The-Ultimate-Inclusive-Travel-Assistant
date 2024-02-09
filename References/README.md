@@ -15,3 +15,6 @@
 13. https://arxiv.org/abs/2304.03442
 14. https://fauna.com/blog/building-ai-applications-with-openai-pinecone-langchain-fauna 
 15. https://colab.research.google.com/drive/1_efkH2yOt4vuOwnhl57pT_1QSGmH6TcH?usp=sharing#scrollTo=rNq12_QDPW4b
+16.https://arxiv.org/abs/2005.11401
+17. https://arxiv.org/abs/2305.04091
+18. https://github.com/assafelovic/gpt-researcher?tab=readme-ov-file
