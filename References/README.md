@@ -10,3 +10,8 @@
 8. https://medium.com/the-pelago-tech-blog/revolutionising-travel-assistance-pelagos-llm-powered-chatbot-3def61feccef
 9. https://medium.com/@bijit211987/optimizing-rag-for-llms-apps-53f6056d8118
 10. https://www.geeksforgeeks.org/python-convert-speech-to-text-and-text-to-speech/
+11. https://arxiv.org/pdf/2210.03629.pdf
+12. https://blog.research.google/2022/11/react-synergizing-reasoning-and-acting.html
+13. https://arxiv.org/abs/2304.03442
+14. https://fauna.com/blog/building-ai-applications-with-openai-pinecone-langchain-fauna 
+15. https://colab.research.google.com/drive/1_efkH2yOt4vuOwnhl57pT_1QSGmH6TcH?usp=sharing#scrollTo=rNq12_QDPW4b
