@@ -8,11 +8,9 @@ import pyttsx3
 from langchain.agents import Tool, AgentExecutor, create_react_agent, AgentOutputParser,Tool
 from langchain.prompts import StringPromptTemplate
 from langchain_openai import ChatOpenAI
-from langchain.chains import LLMChain
 from typing import List, Union
 from langchain.schema import AgentAction, AgentFinish, OutputParserException
 import re
-from langchain_community.chat_models import ChatOpenAI
 from langchain_community.tools import DuckDuckGoSearchRun
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 
@@ -108,28 +106,20 @@ class CustomOutputParser(AgentOutputParser):
 
 
 def search_online(input_text):
-    search = DuckDuckGoSearchRun().run(f"site:tripadvisor.com things to do{input_text}")
+    search = DuckDuckGoSearchRun().run(f"site:tripadvisor.com {input_text}")
     return search
-
 
 def search_hotel(input_text):
     search = DuckDuckGoSearchRun().run(f"site:booking.com {input_text}")
     return search
 
-
 def search_flight(input_text):
     search = DuckDuckGoSearchRun().run(f"site:skyscanner.com {input_text}")
     return search
 
-
 def search_general(input_text):
     search = DuckDuckGoSearchRun().run(f"{input_text}")
     return search
-
-'''
-def _handle_error(error) -> str:
-    return str(error)[:50]
-'''
 
 tools = [
 
@@ -161,21 +151,21 @@ prompt = CustomPromptTemplate(
     tools=tools,
     # This omits the `agent_scratchpad`, `tools`, and `tool_names` variables because those are generated dynamically
     # This includes the `intermediate_steps` variable because that is needed
-    input_variables=["input", "intermediate_steps"]
+    input_variables=["input", "intermediate_steps",'tool_names', 'tools', 'agent_scratchpad']
 )
 prompt_with_history = CustomPromptTemplate(
     template=template,
     tools=tools,
     # This omits the `agent_scratchpad`, `tools`, and `tool_names` variables because those are generated dynamically
     # This includes the `intermediate_steps` variable because that is needed
-    input_variables=["input", "intermediate_steps", "history"]
+    input_variables=["input", "intermediate_steps", "history",'tool_names', 'tools', 'agent_scratchpad']
 )
 prompt_langchain_hub = hub.pull("hwchase17/react-chat")
 output_parser = CustomOutputParser()
-memory = ConversationBufferWindowMemory(k=2)
+memory = ConversationBufferWindowMemory(k=5)
 llm = ChatOpenAI(temperature=0.7, model="gpt-3.5-turbo-0613", openai_api_key=config.OPENAI_API_KEY)
 # LLM chain consisting of the LLM and a prompt
-llm_chain = LLMChain(llm=llm, prompt=prompt_with_history)#choose if you want prompt with history or just prompt
+#llm_chain = LLMChain(llm=llm, prompt=prompt_with_history)#choose if you want prompt with history or just prompt
 tool_names = [tool.name for tool in tools]
 '''agent = LLMSingleActionAgent(
     llm_chain=llm_chain,
@@ -185,7 +175,7 @@ tool_names = [tool.name for tool in tools]
 )
 agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, verbose=True, memory=memory)'''
 agent = create_react_agent(llm=llm, tools=tools, prompt=prompt_with_history)
-agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, memory=memory)
+agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, memory=memory,handle_parsing_errors=True)
 
 @app.route("/")
 def index():

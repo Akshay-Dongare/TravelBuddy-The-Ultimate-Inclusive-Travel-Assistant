@@ -12,3 +12,4 @@ pydantic==1.10.8
 pyttsx3
 pyaudio
 speechrecognition
+langchainhub
