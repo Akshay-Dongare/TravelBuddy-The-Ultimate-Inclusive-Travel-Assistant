@@ -13,3 +13,8 @@ pyttsx3
 pyaudio
 speechrecognition
 langchainhub
+requests
+Flask==1.0.2
+oauthlib==3.0.1
+pyOpenSSL==19.0.0
+Flask-Login==0.4.1
