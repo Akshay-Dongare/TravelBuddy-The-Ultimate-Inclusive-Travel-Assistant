@@ -23,3 +23,24 @@
 1. https://realpython.com/flask-google-login/ 
 2. https://qxf2.com/blog/add-google-sso-flask/
 3. https://www.freecodecamp.org/news/how-to-authenticate-users-in-flask/
+
+## Bookmarks
+1. https://docs.pinecone.io/docs/openai
+2. https://github.com/pinecone-io/examples/blob/master/learn/generation/langchain/handbook/08-langchain-retrieval-agent.ipynb
+3. https://huggingface.co/facebook/s2t-medium-librispeech-asr
+4. https://docs.pinecone.io/docs/langchain
+5. https://colab.research.google.com/drive/1_efkH2yOt4vuOwnhl57pT_1QSGmH6TcH?usp=sharing#scrollTo=rNq12_QDPW4b\
+6. https://www.linkedin.com/pulse/create-custom-travel-planner-chatbot-built-in-web-search-vikram-desai/
+7. https://github.com/VikramDesai/langchain-llama_index-chainlit-LLMagent-chatbots
+8. https://docs.chainlit.io/get-started/installation
+9. https://www.mercity.ai/blog-post/guide-to-fine-tuning-llms-with-lora-and-qlora
+10. https://python.langchain.com/docs/expression_language/cookbook/retrieval
+11. https://smith.langchain.com/hub/hwchase17/react?ref=blog.langchain.dev
+12. https://react-lm.github.io/
+13. https://github.com/facebookresearch/fairseq/tree/main?tab=readme-ov-file
+14. https://github.com/facebookresearch/fairseq/blob/main/examples/language_model/README.md
+15. https://www.youtube.com/watch?v=a-OwY2SqKQI&t=422s&ab_channel=AACL2020
+16. https://github.com/facebookresearch/fairseq/blob/main/examples/speech_recognition/README.md
+17. https://github.com/facebookresearch/fairseq/tree/main/examples/speech_recognition
+18. https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes
+19. https://developers.google.com/apps-script/
