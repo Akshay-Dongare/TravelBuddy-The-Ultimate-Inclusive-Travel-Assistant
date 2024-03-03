@@ -2,7 +2,41 @@
 import ollama
 import streamlit as st
 
-st.title("Ollama Python Chatbot")
+#Hyperparameters
+
+st.session_state["model"] = "TravelBuddy:latest"
+
+st.title("Travel Buddy")
+
+from streamlit_extras.stylable_container import stylable_container
+
+st.title("Audio Recorder")
+with stylable_container(
+        key="bottom_content",
+        css_styles="""
+            {
+                position: fixed;
+                bottom: 120px;
+            }
+            """,
+    ):
+        audio = audiorecorder("🎙️ start", "🎙️ stop")
+        print('audio: ', audio)
+        if len(audio) > 0:
+            audio.export("audio.mp3", format="mp3")
+
+st.chat_input("These are words.")
+
+with stylable_container(
+        key="text_input1",
+        css_styles="""
+            {
+                position: fixed;
+                bottom: 200px;
+            }
+            """,
+    ):
+    st.text_input(label = 'text' ,value = "These are words.")
 
 # initialize history
 if "messages" not in st.session_state:
@@ -12,8 +46,9 @@ if "messages" not in st.session_state:
 if "model" not in st.session_state:
     st.session_state["model"] = ""
 
-models = [model["name"] for model in ollama.list()["models"]]
-st.session_state["model"] = st.selectbox("Choose your model", models)
+# No need to show model list to user
+#models = [model["name"] for model in ollama.list()["models"]]
+#st.session_state["model"] = st.selectbox("Choose your model", models)
 
 def model_res_generator():
     stream = ollama.chat(
@@ -29,7 +64,7 @@ for message in st.session_state["messages"]:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-if prompt := st.chat_input("What is up?"):
+if prompt := st.chat_input("TravelBuddy is ready to answer all your travel queries!"):
     # add latest message to history in format {role, content}
     st.session_state["messages"].append({"role": "user", "content": prompt})
 
