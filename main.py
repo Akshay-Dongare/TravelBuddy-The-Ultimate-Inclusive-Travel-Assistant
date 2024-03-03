@@ -8,36 +8,6 @@ st.session_state["model"] = "TravelBuddy:latest"
 
 st.title("Travel Buddy")
 
-from streamlit_extras.stylable_container import stylable_container
-
-st.title("Audio Recorder")
-with stylable_container(
-        key="bottom_content",
-        css_styles="""
-            {
-                position: fixed;
-                bottom: 120px;
-            }
-            """,
-    ):
-        audio = audiorecorder("🎙️ start", "🎙️ stop")
-        print('audio: ', audio)
-        if len(audio) > 0:
-            audio.export("audio.mp3", format="mp3")
-
-st.chat_input("These are words.")
-
-with stylable_container(
-        key="text_input1",
-        css_styles="""
-            {
-                position: fixed;
-                bottom: 200px;
-            }
-            """,
-    ):
-    st.text_input(label = 'text' ,value = "These are words.")
-
 # initialize history
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
@@ -74,3 +44,5 @@ if prompt := st.chat_input("TravelBuddy is ready to answer all your travel queri
     with st.chat_message("assistant"):
         message = st.write_stream(model_res_generator())
         st.session_state["messages"].append({"role": "assistant", "content": message})
+
+listen_btn = st.button("Record")
