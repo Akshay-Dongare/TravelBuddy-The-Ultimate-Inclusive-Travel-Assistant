@@ -1,3 +1,4 @@
+cmake
 Flask
 pinecone-client[grpc]
 pinecone-datasets==0.7.0
