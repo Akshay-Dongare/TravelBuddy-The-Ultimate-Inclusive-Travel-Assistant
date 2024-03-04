@@ -11,7 +11,6 @@ langchain-openai
 openai
 pydantic==1.10.8
 pyttsx3
-pyaudio
 speechrecognition
 langchainhub
 requests
@@ -20,5 +19,4 @@ oauthlib==3.0.1
 pyOpenSSL==19.0.0
 Flask-Login==0.4.1
 PyAudio
-portaudio
 chromadb
