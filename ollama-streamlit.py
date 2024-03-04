@@ -7,8 +7,9 @@ import pyttsx3
 #Hyperparameters
 st.session_state["model"] = "TravelBuddy:latest"
 st.set_page_config(layout='wide')
+st.image('./static/travelbuddylogo.png', width=500)
+st.title("The Ultimate Inclusive Travel Assistant")
 
-st.title("Travel Buddy: The Ultimate Inclusive Travel Assistant")
 # initialize history
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
