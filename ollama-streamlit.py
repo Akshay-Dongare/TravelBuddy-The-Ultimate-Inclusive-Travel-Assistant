@@ -188,5 +188,5 @@ def continous_voice():
 
 
 
-st.button('Mic', on_click=voice)
-st.button('Continous Voice', on_click=continous_voice)
+st.button('Push to talk 🎙️', on_click=voice)
+st.button('Continous Voice 🎤 (Say `exit` to quit)', on_click=continous_voice)
