@@ -18,13 +18,13 @@ st.set_page_config(layout='wide')
 
 
 #loader = CSVLoader(file_path=r"C:\Users\aksha\Desktop\Git Cloned Repositories\BE-Project\Dataset\merge-csv.com__65e64fed4d5d2.csv")
-loader = TextLoader(r"C:\Users\aksha\Desktop\Git Cloned Repositories\BE-Project\Dataset\empty.txt",encoding='utf-8')
+loader = TextLoader(r"C:\Users\aksha\Desktop\Git Cloned Repositories\BE-Project\requirements.txt",encoding='utf-8')
 docs = loader.load()
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 splits = text_splitter.split_documents(docs)
 
 # Create Ollama embeddings and vector store
-embeddings = OllamaEmbeddings(model="TravelBuddy:latest")
+embeddings = OllamaEmbeddings(model="")
 vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
 
 # Create the retriever

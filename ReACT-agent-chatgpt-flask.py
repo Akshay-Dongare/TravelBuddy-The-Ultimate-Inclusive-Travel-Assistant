@@ -2,7 +2,8 @@
 #<iframe src="https://app.relevanceai.com/form/bcbe5a/efce2479-8da1-4a3c-befa-e40679bf1b41" width="500px" height="750px" frameborder="0"></iframe>
 
 
-import Utils.config as config
+#import Utils.config as config
+from dotenv import load_dotenv
 from flask import Flask, render_template, request
 import os
 #from openai import OpenAI
@@ -19,6 +20,9 @@ from langchain_community.tools import DuckDuckGoSearchRun
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 
 app = Flask(__name__)
+load_dotenv()
+
+
 
 template = """Answer the following questions as best you can, but speaking as passionate travel expert. You have access to the following tools:
 
@@ -167,7 +171,7 @@ prompt_with_history = CustomPromptTemplate(
 prompt_langchain_hub = hub.pull("hwchase17/react-chat")
 output_parser = CustomOutputParser()
 memory = ConversationBufferWindowMemory(k=5)
-llm = ChatOpenAI(temperature=0.7, model="gpt-3.5-turbo-0613", openai_api_key=config.OPENAI_API_KEY)
+llm = ChatOpenAI(temperature=0.7, model="gpt-3.5-turbo-0613", openai_api_key=os.getenv("OPENAI_API_KEY"))
 # LLM chain consisting of the LLM and a prompt
 #llm_chain = LLMChain(llm=llm, prompt=prompt_with_history)#choose if you want prompt with history or just prompt
 tool_names = [tool.name for tool in tools]

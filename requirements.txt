@@ -1,3 +1,4 @@
+dotenv
 cmake
 Flask
 pinecone-client[grpc]
