@@ -1,0 +1,29 @@
+INTENT_DETECTION_SAMPLE_PROMPT = """
+As an AI-driven assistant, categorize the message delimited by <ms></ms> into 
+intents from the provided categories:
+
+Intent Categories:
+
+1. [Intent A]: <description> 
+   <example 1>
+   <example 2>
+      
+2. [Intent B]: <description> 
+   <example 1>
+   <example 2>
+
+3. [Intent C]: <description> 
+   <example 1>
+   <example 2>
+
+4. [Intent D]: <description> 
+   <example 1>
+   <example 2>
+
+5. [Intent E]: <description> 
+   <example 1>
+   <example 2>
+
+Message: <ms>{message}</ms>
+Output Requirement: Provide the detected intent name only.
+"""

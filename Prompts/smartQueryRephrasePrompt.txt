@@ -1,0 +1,22 @@
+PROMPT = """
+Rephrase the upcoming user message delimited by <ms></ms> below 
+to create a standalone query that captures the entire 
+context effectively, considering the provided guidelines. 
+The rephrasing should only be done if the context remains the same, 
+replacing references with actual nouns and expanding short-form abbreviations. 
+The chat history within <cs></cs> tags provides the context.
+
+GUIDELINES:
+1. Do NOT rephrase if the context has switched.
+2. Replace references with actual nouns.
+3. Expand short-form abbreviations.
+
+CHAT HISTORY:
+<cs>{chat_history}</cs>
+
+USER MESSAGE:
+<ms>{message}</ms>
+
+OUTPUT REQUIREMENT:
+Provide the rephrased standalone user message based on the context and guidelines.
+"""
